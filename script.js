@@ -10,3 +10,17 @@ const rAvg = runningAverage();
 console.log(rAvg(10));
 console.log(rAvg(11));
 console.log(rAvg(12));
+
+function sum(...args) {
+  let currentSum = args.reduce((a, b) => a + b, 0);
+  function curry(...argsInner) {
+    currentSum += argsInner.reduce((a, b) => a + b, 0);
+    return curry;
+  }
+  curry.toString = () => currentSum;
+  return curry;
+}
+
+console.log(sum(2, 3));
+console.log(sum(2)(3));
+console.log(sum(1)(2)(3)(4));
